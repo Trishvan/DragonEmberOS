@@ -1,5 +1,5 @@
 # Compiler and flags for 64-bit x86 (native)
-CC = 
+CC = i686-elf-gcc
 CFLAGS = -ffreestanding -O2 -Wall -Wextra -m64
 LDFLAGS = -T linker.ld
 AS = nasm
