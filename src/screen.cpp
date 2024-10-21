@@ -1,23 +1,13 @@
 #include "screen.h"
 
-volatile char* video_memory = (volatile char*)0xB8000;  // VGA text buffer starting address
+// Define the VGA buffer location
+volatile char* video = (volatile char*)0xB8000;
 
-void init_screen() {
-    clear_screen();  // Optionally, clear the screen on initialization
-}
-
-void print(const char* message) {
-    int offset = 0;
-    while (*message) {
-        video_memory[offset] = *message++;    // Write character to video memory
-        video_memory[offset + 1] = 0x07;      // Attribute byte: light grey on black
-        offset += 2;
-    }
-}
-
-void clear_screen() {
-    for (int i = 0; i < 80 * 25 * 2; i += 2) {
-        video_memory[i] = ' ';               // Fill with spaces
-        video_memory[i + 1] = 0x07;          // Attribute byte: light grey on black
+void print(const char* str) {
+    unsigned int i = 0;
+    while (str[i] != '\0') {
+        video[i * 2] = str[i];      // Character byte
+        video[i * 2 + 1] = 0x07;    // Attribute byte (white on black)
+        i++;
     }
 }

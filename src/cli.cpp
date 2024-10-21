@@ -36,15 +36,17 @@ void gets(char* buffer) {
         if (c == '\b') {  // Handle backspace
             if (i > 0) {
                 i--;
-                // Optional: You could add code to update the screen if backspace is pressed.
+                // Optionally: Clear the character on the screen
+                print("\b \b");  // Move back, print space, move back again
             }
-        } else {
+        } else if (i < 255) {  // Prevent buffer overflow
             buffer[i++] = c;  // Store character
-            // Optional: You could add code to print characters to the screen as they are typed.
+            print(&c);  // Print the character to the screen
         }
     }
     buffer[i] = '\0';  // Null-terminate the string
 }
+
 
 // Mock function to simulate getting a key from the keyboard (replace with real input later)
 
@@ -101,4 +103,6 @@ void puts(const char* str) {
 
         str++;  // Move to the next character
     }
+    
 }
+

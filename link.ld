@@ -1,27 +1,27 @@
 OUTPUT_FORMAT(elf64-x86-64)
-ENTRY(kernel_start)
+ENTRY(_start)
 
 SECTIONS
 {
-    . = 0x100000;          /* Load kernel at address 1MB */
+    . = 0x100000;
 
     .text : {
-        *(.text)           /* Code section */
+        *(.multiboot)
+        *(.text)
     }
 
     .rodata : {
-        *(.rodata*)        /* Read-only data */
+        *(.rodata)
     }
 
     .data : {
-        *(.data)           /* Initialized data */
+        *(.data)
     }
 
     .bss : {
-        *(.bss)            /* Uninitialized data */
+        *(.bss)
+        *(COMMON)
     }
 
-    /DISCARD/ : {
-        *(.eh_frame)       /* Discard exception handling */
-    }
+    /DISCARD/ : { *(.eh_frame) }
 }
